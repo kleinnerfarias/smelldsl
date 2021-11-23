@@ -1,2 +1,2 @@
 # smelldsl
-SmellDSL - A domain-specific language for specifying bad smells
+SmellDSL: A domain-specific language for the specification of bad smells
