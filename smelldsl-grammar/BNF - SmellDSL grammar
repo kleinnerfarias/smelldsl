@@ -1,0 +1,53 @@
+SMELLDSL GRAMMAR
+
+
+<domainmodel> ::= <type> | <type> <domainmodel>
+
+<type> ::= <smelltype> | <smell> | <rule> 
+
+<smelltype> ::= "smelltype" <whitespace> <name> ";"
+
+<smell> ::= "smell" <whitespace> <name> <whitespace> <opt-extends> <whitespace> "{" <smellcontent> "}
+
+<smellcontent> ::= <feature> <smellcontent> | <feature> <symptom> <treatment>
+
+<feature> ::= "feature" <name> <whitespace> <opt-scale> <whitespace> "with threshold" <whitespace> <measure> 
+
+<symptom> ::= <letter> | ""
+
+<treatment> ::= <letter> | ""
+
+<opt-scale> ::= "is" <whitespace> <scaletype> | ""
+
+<rule> ::= "rule" <name> <whitespace> "when" <whitespace> <logic-expression> "then" <whitespace> <literal>
+
+<measure> ::= <name> | <name> "," <measure>
+
+<logic-expression> ::= <expression> | <expression> <logic-operator> <logic-expression>
+
+<expression> ::= <smell>"."<feature> <relational-operator> <smell>"."<feature> 
+
+<scaletype> ::= "Nominal" | "Ordinal" | "Interval" | "Ratio" | "Others"
+
+<relational-operator> ::=  ">=" | "<=" | "<" | ">" | "!=" | "=="
+
+<logic-operator> ::= "AND" | "OR"
+
+<opt-extends> ::= "extends" <whitespace> <smelltype> | ""
+
+<whitespace> ::= " " | " " <whitespace>
+
+<name> ::= <character> | <character> <name>
+
+<measure> ::= <text> | <text> "," <whitespace> <measure>
+
+<text> ::= <character> <text> | ""
+
+<character> ::= <letter> | <number> | <symbol> 
+
+<letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+
+<number> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+<symbol> ::=  "-" | "_"
+

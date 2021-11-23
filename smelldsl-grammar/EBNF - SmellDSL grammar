@@ -1,0 +1,49 @@
+SMELLDSL GRAMMAR - RAILBOARD DIAGRAM
+
+domainmodel ::= type | type domainmodel
+
+type ::= smelltype | smell | rule 
+
+smelltype ::= "smelltype" whitespace name ";"
+
+smell ::= "smell" whitespace name whitespace opt-extends whitespace "{" smellcontent "}"
+
+opt-extends ::= "extends" whitespace smelltype | ""
+
+smellcontent ::= feature smellcontent | feature symptom treatment
+
+feature ::= "feature" name whitespace opt-scale whitespace "with threshold" whitespace measure
+
+measure ::= text | text "," whitespace measure
+
+opt-scale ::= "is" whitespace scaletype | ""
+
+symptom ::= letter | ""
+
+treatment ::= letter | ""
+
+rule ::= "rule" name whitespace "when" whitespace logic-expression "then" whitespace text
+
+logic-expression ::= expression | expression logic-operator logic-expression
+
+expression ::= smell "." feature relational-operator smell "." feature 
+
+scaletype ::= "Nominal" | "Ordinal" | "Interval" | "Ratio" | "Other"
+
+relational-operator ::=  ">=" | "<=" | "<" | ">" | "!=" | "=="
+
+logic-operator ::= "AND" | "OR"
+
+text ::= character text | ""
+
+whitespace ::= " " | " " whitespace
+
+name ::= character | character name
+
+character ::= letter | number | symbol
+
+letter ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+
+number ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+symbol ::=  "-" | "_"
