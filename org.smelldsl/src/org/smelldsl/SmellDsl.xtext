@@ -1,0 +1,58 @@
+grammar org.smelldsl.SmellDsl with org.eclipse.xtext.common.Terminals
+
+generate smellDsl "http://www.smelldsl.org/SmellDsl"
+
+Domainmodel:
+	(elements+=Type)*;
+	
+Type:
+    SmellType | Smell | Rule;	
+
+SmellType:
+    'smelltype' name=ID;    
+    
+    
+Smell:
+    'smell' name=ID ('extends' superType=[SmellType])? '{'
+        (smellcontent+=Feature)*
+        (symptom?=Symptom)?
+        (treatment?=Treatment)?
+    '}';
+    
+Feature:
+    'feature' name=ID (optscales?=Optscale)? 'with threshold' (measures+=Measure)* ;   
+    
+Optscale: 
+     'is' (scaletype=Scaletype);
+
+enum Scaletype:
+    Nominal='Nominal' | Ordinal='Ordinal' | Interval='Interval' | Ratio='Ratio';     
+    
+
+Measure: name=ID |  name=ID ',' (measure=Measure) ;
+         
+Symptom:
+    'symptom' name=ID;
+
+Treatment:
+    'treatment' name=ID;    
+    
+Rule: 
+	'rule' name=ID 'when' (logicExpression+=LogicExpression)*  'then' (result+=Result)*;
+
+LogicExpression:
+    (expression=Expression) | (expression=Expression) (logicOperator=LogicOperator) (logicExpression=LogicExpression);
+
+enum LogicOperator:
+    AND='AND' | OR='OR';
+
+Expression: 
+    ID('.'ID) (relationalOperator+=RelationalOperator) ID('.'ID);
+    
+enum RelationalOperator:
+    GreaterThanOrEqualTo='>=' | LessThanOrEqualTo='<=' | NotEqualTo='!=' | LessThan='<' | GreaterThan='>' | EqualTo='=='; 	
+
+Result:
+	name=ID;
+	
+
