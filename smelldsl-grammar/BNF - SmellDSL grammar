@@ -7,7 +7,7 @@ SMELLDSL GRAMMAR
 
 <smelltype> ::= "smelltype" <whitespace> <name> ";"
 
-<smell> ::= "smell" <whitespace> <name> <whitespace> <opt-extends> <whitespace> "{" <smellcontent> "}
+<smell> ::= "smell" <whitespace> <name> <whitespace> <opt-extends> <whitespace> "{" <smellcontent> "}"
 
 <smellcontent> ::= <feature> <smellcontent> | <feature> <symptom> <treatment>
 
